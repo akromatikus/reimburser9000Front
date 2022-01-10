@@ -1,0 +1,161 @@
+
+
+.App {
+  text-align: center;
+}
+
+body{
+  background-image: url("./assets/login-background.jpg");
+  /* outline: 5px solid rgb(228, 2, 2);  */
+}
+
+.login{
+  /* display: inline; */
+  /* outline: 5px solid rgb(14, 182, 70);  */
+  max-width: 100vh;
+  /* align-content: center; */
+  margin:auto;
+  position: relative;
+  
+}
+
+.username{
+  text-align: center;
+  height: 4vmin;
+  font-size: 20px;
+  border-radius: 10px;
+  border-width: 4px;
+  width: 30vh;
+  border-color: black;
+  /* margin-left: 50vh;
+  margin-right: 50vh; */
+  position: relative; 
+  left: 0%;
+  background-clip: border;
+  -webkit-background-clip: border;
+  /* -webkit-text-fill-color: transparent; */
+  background-image: url("./assets/blue-dots.jpg");
+  /* transform: translateX(200%); */
+}
+
+.pw{
+  text-align: center;
+  height: 4vmin;
+  font-size: 20px;
+  border-radius: 10px;
+  border-width: 4px;
+  width: 30vh;
+  border-color: black;
+  /* margin-right: -50vh; */
+  position: relative; 
+  left: 36%;
+  background-clip: border;
+  -webkit-background-clip: border;
+  /* -webkit-text-fill-color: transparent; */
+  background-image: url("./assets/blue-dots.jpg");
+}
+
+.log-in{
+  margin-top: 40px;
+  margin-bottom: 40px;
+  height: 5%;
+  font-size: 25px;
+  color: white;
+  border-radius: 60px;
+  border-width: 4px;
+  width: 8%;
+  border-color: black;
+  /* margin-left: 50vh;
+  margin-right: 50vh; */
+  position: relative; 
+  left: 46%;
+  background-clip: border;
+  -webkit-background-clip: border;
+  background-image: url("./assets/blue-dots.jpg");
+ 
+}
+
+
+.App-logo {
+  font-family: "serat";
+  font-size: 90px;
+  height: 15vmin;
+  pointer-events: none;
+  letter-spacing: 20px;
+  margin-top: 10vh;
+  /* text-shadow: 0 0 3px rgb(31, 3, 185), 0 0 10px #000000; */
+  -webkit-text-stroke: 3px rgb(0, 0, 0);
+  
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: url("./assets/blue-dots.jpg");
+  
+  /* great for seeing borders */
+  /* outline: 5px solid rgb(0, 0, 0);  */
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    text-align: center;
+    /* animation: App-logo-float infinite 3s ease-in-out; */
+    /* animation: slidein 3s;
+    animation: App-logo-float 3s infinite 3s; */
+    animation-name: slidein, App-logo-float;
+    animation-duration: 3s, 3s;
+    animation-iteration-count: 1, infinite;
+  }
+
+  .username{
+    animation-name: slideright;
+    animation-duration: 3s;
+    animation-iteration-count: 1;
+
+  }
+  .pw{
+    animation-name: slideleft;
+    animation-duration: 3s;
+    animation-iteration-count: 1;
+
+  }
+}
+
+.App-header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.App-link {
+  color: rgb(112, 76, 182);
+}
+
+@keyframes App-logo-float {
+  0% {
+    transform: translateY(20px);
+  }
+  50% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(20px);
+  }
+}
+
+@keyframes slidein {
+  0% { margin-top:-100vh; opacity: 0 ; }
+  100% { margin-top:10vh; opacity: 100% ; }
+}
+
+@keyframes slideright {
+  0% { left:-100%; opacity: 0 ; }
+  100% { left:0%; opacity: 100% ; }
+}
+
+@keyframes slideleft {
+  0% { left:200%; opacity: 0 ; }
+  100% { left:36%; opacity: 100% ; }
+}
