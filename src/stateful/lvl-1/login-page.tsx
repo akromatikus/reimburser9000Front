@@ -1,75 +1,74 @@
 import {useRef, useState} from "react"
-import EmployeePage from "./employee-page"
+import user from "../../assets/dtos"
+import fetcher from "../../stateless/fetcher"
+import EmployeePage from "../lvl-2/employee-page"
+
+
 
 export default function LoginPage(){
     
     //states
-    
-    //!need the null for instantialization
     const usernameInput = useRef(null)
-
     const pwInput = useRef(null)
-    const loginButton = (null)
-    const [user, setUser] = useState({username:'', pw:''})
-    
-    //check the backend to make sure a pw and username match
-    //an anon function is needed to guarentee a void return
+    const [attemptWarning, setWarning] = useState('')
+    const [user, setUser] = useState<user>(
+        // {
+        //     id:"",
+        //     username:"",
+        //     pw:"",
+        //     isManager:false,
+        //     expenseHistory: [
+        //         {
+        //             name:'',
+        //             amount:0,
+        //             reason:'',
+        //             isApproved:''
+        //         }
+        //     ] 
+        // }
+    )
+
+    //button click function
     async function checkCredentials(){
 
         const inputsToCheck = {   
             username: usernameInput.current.value,
             pw: pwInput.current.value
         } 
-
-        console.log("getting ready to fetch")
-
-        const backendRes = 
-            await fetch('http://localhost:5000/users', {
-                    method:'PATCH', body: JSON.stringify(inputsToCheck), 
-                    headers:{'Content-Type':'application/json'}
-            })
-
-
-        console.log("fetch header completed, parsing json") 
-        //should return a user object   
-        const resBody = await backendRes.json()
-        console.log("the response body is:")
-        console.log(resBody)
         
+        //fetch a user if one exists
+        const resBody = await fetcher(inputsToCheck, 'check-if-user')
+
+        console.log("the fetched response expense array is",resBody.expenseHistory)
+        
+        //if the user exists
         if (resBody !== 'Not a user'){
-            setUser({username: resBody.username, pw:resBody.pw})
-            //rerendering happens before these comments are made
-            console.log("The user state inside login-page has been set to: ")
-            console.log(user)
-            console.log("Preparing to rerender")
+             setUser({
+                id: resBody.id, 
+                username: resBody.username, 
+                pw: resBody.pw,
+                isManager: resBody.isManager,
+                expenseHistory: resBody.expenseHistory
+            })  
         }
-        //props.updateUserProp({username:resBody.username, pw:resBody.pw})
-    
+        else{
+            setWarning("The username and/or password is incorrect.")
+        }
     }
 
-    // async function getAllUsers(){
-
-    //     //send the http request to the backend and store the response
-    //     const backendResponse = await fetch('http://localhost:5000/users')
-
-    //     //parse the response body
-    //     const users = await backendResponse.json()
-
-    //     console.log(users)
-    // }
-
+    //returns either this login page or the employee page
     return(<>{
         
-        user.username === '' ? 
+        !user ? 
         <> 
             <h1 className='App-logo'>Login</h1>
-            <div className="login">
+            <div className="divLogin">
             <input ref={usernameInput} id="username" className="username" placeholder="username" />
             <input ref={pwInput} id="pw" className="pw" placeholder="password" />
             </div>
-            <button ref={loginButton} onClick={checkCredentials} className="log-in">Log In</button>
-        </> : 
-            <EmployeePage employeeName = {user.username}/>
-        }
+            <button onClick={checkCredentials} className="log-in">Log In</button>
+            <h2 className="warning">{attemptWarning}</h2>
+        </> : <EmployeePage user = {user}/>
+    }
     </>)
 }

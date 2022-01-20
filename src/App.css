@@ -1,15 +1,28 @@
 
-
 .App {
+  /* outline: 5px solid rgb(228, 2, 2); */
+  text-align: center;
+  height: 100vh;
+}
+
+.warning{
   text-align: center;
 }
 
 body{
+  font-family:monospace;
+  /* font-weight: bold; */
+  overflow: hidden;
+  overscroll-behavior: auto;
+  /* overflow-y: auto; */
   background-image: url("./assets/login-background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
   /* outline: 5px solid rgb(228, 2, 2);  */
+  min-height: 100vh;
 }
 
-.login{
+.divLogin{
   /* display: inline; */
   /* outline: 5px solid rgb(14, 182, 70);  */
   max-width: 100vh;
@@ -20,10 +33,12 @@ body{
 }
 
 .username{
+  font-family: inherit;
+  /* outline: 5px solid rgb(228, 2, 2); */
   text-align: center;
   height: 4vmin;
-  font-size: 20px;
-  border-radius: 10px;
+  font-size: 2vh;
+  border-radius: 1vmin;
   border-width: 4px;
   width: 30vh;
   border-color: black;
@@ -38,11 +53,40 @@ body{
   /* transform: translateX(200%); */
 }
 
+.employeeName{
+
+  font-family: inherit;
+  /* justify-content and align items will center text with more grace than regular css, but display: flex is required!!! */
+  display:flex;
+  justify-content: center;
+  align-items: center;
+
+  color: white;
+  /* text-justify: center; */
+  height: 4vh;
+  font-size:2vh;
+  border-style: solid;
+  border-radius: 1vmin;
+  border-width: 4px;
+  width: 14%;
+  border-color: black;
+  /* margin-left: 50vh;
+  margin-right: 50vh; */
+  position:absolute; 
+  left: 3%;
+  top: 12%;
+  background-clip: border;
+  -webkit-background-clip: border;
+  /* -webkit-text-fill-color: transparent; */
+  background-image: url("./assets/blue-dots.jpg");
+  /* transform: translateX(200%); */
+}
+
 .pw{
   text-align: center;
   height: 4vmin;
-  font-size: 20px;
-  border-radius: 10px;
+  font-size: 2vh;
+  border-radius: 1vmin;
   border-width: 4px;
   width: 30vh;
   border-color: black;
@@ -56,12 +100,17 @@ body{
 }
 
 .log-in{
+  /* outline: 5px solid rgb(228, 2, 2); */
+  display:flex;
+  justify-content: center;
+  align-items: center;
+
   margin-top: 40px;
   margin-bottom: 40px;
   height: 5%;
-  font-size: 25px;
-  color: white;
-  border-radius: 60px;
+  font-size: 4vh;
+  color: rgb(60, 162, 187);
+  border-radius: 1vmin;
   border-width: 4px;
   width: 8%;
   border-color: black;
@@ -75,14 +124,209 @@ body{
  
 }
 
+/* also the add a request button */
+.managerBtn{
+  /* word-wrap:unset; */
+  font-family: inherit;
+  opacity: 75%;;
+  /* outline: 5px solid rgb(228, 2, 2); */
+  display:flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 5vmin;
+  width: 14%;
+  font-size: 2vh;
+  border-radius: 1vmin;
+  border-width: 4px;
+  /* border-style:inherit; */
+  /* border-radius: 10px; */
+  /* border-width: 4px;
+  width: 30vh;
+  /* border-color: black; */
+  padding: 20px 5px 20px 5px;
+  position:absolute; 
+  right: 3%;
+  top: 6%;
+  background-clip:inherit; 
+  -webkit-background-clip:inherit;
+  -webkit-text-fill-color:rgb(0, 0, 0);
+  font-weight: bold;
+  background-image: url("./assets/blue-dots.jpg");
+
+
+}
+
+.managerBtn:hover{
+  opacity:100%
+}
+
+/* also the add a request button */
+.addReqBtn{
+  font-family: inherit;
+  opacity: 75%;
+  /* outline: 5px solid rgb(228, 2, 2); */
+  display:flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 5vmin;
+  width: 14%;
+  font-size: 2vh;
+  border-radius: 1vmin;
+  border-width: 4px;
+  /* border-style:inherit; */
+  /* border-radius: 10px; */
+  /* border-width: 4px;
+  width: 30vh;
+  /* border-color: black; */
+  padding: 8px;
+  position:absolute; 
+  right: 3%;
+  top: 12%;
+  background-clip:inherit; 
+  -webkit-background-clip:inherit;
+  -webkit-text-fill-color:rgb(0, 0, 0);
+  font-weight: bold;
+  background-image: url("./assets/blue-dots.jpg");
+
+
+}
+
+.addReqBtn:hover{
+  opacity:100%
+}
+
+.saveBtn{
+  font-family: inherit;
+  opacity: 75%;
+  /* outline: 5px solid rgb(228, 2, 2); */
+  display:flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 5vmin;
+  width: 14%;
+  font-size: 2vh;
+  border-radius: 1vmin;
+  border-width: 4px;
+  vertical-align: middle;
+  /* border-style:inherit; */
+  /* border-radius: 10px; */
+  /* border-width: 4px;
+  width: 30vh;
+  /* border-color: black; */
+  padding: 8px;
+  position:absolute; 
+  right: 3%;
+  top: 18%;
+  background-clip:inherit; 
+  -webkit-background-clip:inherit;
+  /* -webkit-text-fill-color:rgba(235, 3, 3, 0.589); */
+  font-weight: bold;
+  background-image: url("./assets/blue-dots.jpg");
+}
+
+.saveBtn:hover{
+  opacity:100%
+}
+
+.deleteBtn{
+  font-family: inherit;
+  opacity: 75%;
+  /* outline: 5px solid rgb(228, 2, 2); */
+  display:inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 3vmin;
+  font-size: 1.5vh;
+  border-radius: 10vmin;
+  
+  /* border-style:inherit; */
+  /* border-radius: 10px; */
+  /* border-width: 4px;
+  width: 30vh;
+  /* border-color: black; */
+  padding: 8px;
+  background-clip:inherit; 
+  -webkit-background-clip:inherit;
+  -webkit-text-fill-color:rgb(0, 0, 0);
+  background-image: url("./assets/blue-dots.jpg");
+}
+
+.deleteBtn:hover{
+  opacity:100%
+}
+
+.userlistname{
+  /* justify-content and align items will center text with more grace than regular css, but display: flex is required!!! */
+  display:flex;
+  justify-content: center;
+  align-items: center;
+
+  color: white;
+  /* text-justify: center; */
+  height: 4vh;
+  font-size:2vh;
+  border-style: solid;
+  border-radius: 1vmin;
+  border-width: 4px;
+  width: 14%;
+  border-color: black;
+  /* margin-left: 50vh;
+  margin-right: 50vh; */
+  position:relative; 
+  left: 3%;
+  /* top: 12%; */
+  background-clip: border;
+  -webkit-background-clip: border;
+  /* -webkit-text-fill-color: transparent; */
+  background-image: url("./assets/blue-dots.jpg");
+  /* transform: translateX(200%); */
+
+}
+
+.newReq{
+  display:inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+  height: 4vmin;
+  font-size: 2vh;
+  border-radius: 1vmin;
+  border-width: 4px;
+  width: 100%;
+  border-color: black;
+  background-color: rgba(230, 230, 250, 0.432);
+  
+  margin-left: -.4vh;
+  /* background-clip: border; */
+  /* -webkit-background-clip: border; */
+  /* -webkit-text-fill-color: transparent; */
+  /* background-image: url("./assets/blue-dots.jpg"); */
+}
 
 .App-logo {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  word-wrap: break-word;
+
+  padding-right: auto;
   font-family: "serat";
   font-size: 90px;
+  /* align-items: center; */
   height: 15vmin;
+  width: 120vh;
+  /* position: relative; */
+  /* left: 25%; */
   pointer-events: none;
   letter-spacing: 20px;
-  margin-top: 10vh;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
   /* text-shadow: 0 0 3px rgb(31, 3, 185), 0 0 10px #000000; */
   -webkit-text-stroke: 3px rgb(0, 0, 0);
   
@@ -94,6 +338,19 @@ body{
   /* great for seeing borders */
   /* outline: 5px solid rgb(0, 0, 0);  */
 }
+
+th, td, table {
+  /* width:94%;  this will not work correctly with flex items inside it */
+  margin-left: 3%;
+  margin-right: 3%;
+  border: 3px solid black;
+  border-radius: 1.25vmin;
+  text-align: center;
+  word-wrap: break-word;
+  font-size: 2vh;
+  background-color: rgba(16, 16, 20, 0.233);
+}
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -121,6 +378,7 @@ body{
 }
 
 .App-header {
+  /* outline: 5px solid rgb(228, 2, 2); */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -131,6 +389,7 @@ body{
 
 .App-link {
   color: rgb(112, 76, 182);
+  /* outline: 5px solid rgb(228, 2, 2); */
 }
 
 @keyframes App-logo-float {
@@ -147,7 +406,7 @@ body{
 
 @keyframes slidein {
   0% { margin-top:-100vh; opacity: 0 ; }
-  100% { margin-top:10vh; opacity: 100% ; }
+  100% { margin-top:5vh; opacity: 100% ; }
 }
 
 @keyframes slideright {
@@ -158,4 +417,14 @@ body{
 @keyframes slideleft {
   0% { left:200%; opacity: 0 ; }
   100% { left:36%; opacity: 100% ; }
+}
+
+@keyframes cornerize {
+  0% { left:200%; opacity: 0 ; }
+  100% { left:36%; opacity: 100% ; }
+}
+
+@-o-viewport{
+  min-zoom: 100%;
+  max-zoom: 100%;
 }

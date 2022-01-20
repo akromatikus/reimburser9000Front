@@ -14,6 +14,17 @@
 - so are components not always functions?
 - why is the state inside login page not updating even though it passes down the updated value to employee page
 
+**TODO**
+- logging
+- jest tests
+- manager comments 
+- manager approval buttons
+- statistics page
+- hosting
+- github actions
+- sonar cloud
+
+
 
 **CREATION and REFERENCES**
 npm init
@@ -52,6 +63,9 @@ npx create-react-app my-app-name --template redux-typescript
 npm run build //allows an actual http server to exist for the front end
     - to use this command, a resource must be created on azure
 ngrok //allows a local back end code to be put on the web where anyone can access it
+
+setTimeout( [func], [time]);
+
 
 ------------------------------------------------------------
 
