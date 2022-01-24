@@ -2,11 +2,13 @@ import { produceWithPatches } from "immer"
 import { useEffect, useRef, useState } from "react"
 import { JsxElement } from "typescript"
 import user, { expenseHistory } from "../../assets/dtos"
-import ExpenseRow from "../../stateless/lvl 1/expense-row"
+import ExpenseRow from "../../stateless/lvl 4/expense-row"
 import ManageRequestsPage from "../lvl-3/manage-requests-page"
 import ManageRequests from "../lvl-3/manage-requests-page"
 import { v4 as randomID } from 'uuid';
 import fetcher from "../../stateless/fetcher"
+import ReactTooltip from "react-tooltip"
+import { Link, Route } from "react-router-dom"
 
 export default function EmployeePage(componentInputs:{user: user}){
     
@@ -21,6 +23,8 @@ export default function EmployeePage(componentInputs:{user: user}){
     const newRequestName = useRef<HTMLInputElement>(null)
     const newRequestAmount = useRef<HTMLInputElement>(null)
     const newRequestReason = useRef<HTMLInputElement>(null)
+
+    const [warning, setWarning] = useState<string>()
 
     let expenseTable: JSX.Element[]
 
@@ -41,21 +45,24 @@ export default function EmployeePage(componentInputs:{user: user}){
 
             <tr key={randomID()}> 
                 <ExpenseRow key={randomID()} {...expense}/> 
-                <td><button className="deleteBtn" value={index} onClick={ (clickEvent) => deleteRequest(clickEvent) }>  DEL{index} </button></td> 
-            </tr>  
+                <td><button className="tableBtn" value={index} onClick={ (clickEvent) => deleteRequest(clickEvent) }>  DEL{index} </button></td> 
+                <ReactTooltip/>
+            </tr>
         ))
         
-
         return(<>
-            <h1 className="App-logo">My Requests</h1>
-            <div>{usernameDisplay}</div>
+            <h1 className="page-name">My Requests</h1>
+            <div className='topleftdiv'>
+                {usernameDisplay}
+                <h1>{warning}</h1> 
+            </div>
             <table cellPadding={20} >
                 <colgroup>
-                    <col width={'9%'}></col>
-                    <col width={'5%'}></col>
+                    <col width={'7.5%'}></col>
+                    <col width={'7.5%'}></col>
                     <col width={'70%'}></col>
-                    <col width={'5%'}></col>
-                    <col width={'5%'}></col>
+                    <col width={'7.5%'}></col>
+                    <col width={'7.5%'}></col>
                 </colgroup>
                 
                 <thead>
@@ -81,6 +88,7 @@ export default function EmployeePage(componentInputs:{user: user}){
 
     function addRequest(){
         if (newRequest){
+            setWarning('')
             console.log("you must save your changes before adding another request")
         }
         else{
@@ -125,44 +133,79 @@ export default function EmployeePage(componentInputs:{user: user}){
         //!null check not working
 
         if (newRequest){
-            const newRequest: expenseHistory = 
-            {
-                name: newRequestName.current?.value?? 'no name', 
-                amount: Number(newRequestAmount.current?.value?? 0)?? 0, 
-                reason: newRequestReason.current?.value?? 'no reason',
-                isApproved: 'n',
-            }
+            try{
+                const newRequestInputs: expenseHistory = 
+                {
+                    name: newRequestName.current.value, 
+                    amount: Number(newRequestAmount.current.value) ?? NaN, 
+                    reason: newRequestReason.current.value,
+                    isApproved: 'Pending',
+                    comment: ''
+                }
+                
+                if (newRequestInputs.name === '' || newRequestInputs.reason === '' || newRequestInputs.amount === NaN || newRequestInputs.amount <= 0 )
+                    {throw new Error("bad EENPOOTS")}
+                
+                //add it to this users information profile (this component only)
+                componentInputs.user.expenseHistory.push(newRequestInputs)
+                console.log("The expenses after saving are" , componentInputs.user.expenseHistory)
 
-            //add it to this users information profile (this component only)
-            componentInputs.user.expenseHistory.push(newRequest)
-            console.log("The expenses after saving are" , componentInputs.user.expenseHistory)
+                await fetcher( [componentInputs.user], 'update-users'); 
+                console.log("pushing to backend in try");
+    
+                
+            }
+            //throw an error if the inputs are invalid
+            catch(error){
+                //if there are deletes that were made
+                if (deleteCounter > 0){
+                    await fetcher( [componentInputs.user], 'update-users'); 
+                    console.log("pushing to backend in catch");
+                }
+
+            }
+            //this will remove the new request on rerender if it is invalid, but also when it is passed in to the component input expenseHistory list
+            setNewRequest(false);
+        }
+        else if (deleteCounter > 0){
+            await fetcher( [componentInputs.user], 'update-users'); 
+            console.log("pushing to backend with no new request added");
         }
 
         //signal by state that all changes have been saved by resetting the isSaved to false
-        isSaved? 
-            console.log("everything is already up to date") 
-            : 
-            //push (fetch request) the users updated info to the backend 
-            await fetcher( [componentInputs.user], 'update-users')
+        if (isSaved){console.log("everything is already up to date")}
+        setDelIndex(0)
+        setToSaved(true)
             
-            setNewRequest(false); 
-            setToSaved(true);
-        
     }
 
 
     //! adding () to a function here will determine whether it is called or rendered. Only A react component child can have no ()
     return(
     <> 
-        {!gotoManageReqPage?
+        {/* {!gotoManageReqPage?
             <>
                 {createPage()}
-                <button onClick={addRequest} className="addReqBtn">Add A Request</button>
-                <button onClick={saveChanges} style={isSaved? {color:'black'} : {color:'red'} } className="saveBtn">{isSaved? "Up To Date" : "Save Changes"}</button>  
-                {componentInputs.user.isManager? <button className="managerBtn" onClick={() => setGotoManageReqPage(true) }>Manage Employee Requests</button> : null }          
+                <div className="toprightbuttons">
+                <button onClick={saveChanges} style={isSaved? {color:'white'} : {color:'red'} } className="button">{isSaved? "Up To Date" : "Save Changes"}</button>  
+                    <button onClick={addRequest} className="button">Add A Request</button> 
+                    {componentInputs.user.isManager? <button className="button" onClick={() => setGotoManageReqPage(true) }>Manage Employee Requests</button> : null }
+                </div>
+                          
             </>   
-        : <ManageRequestsPage user={componentInputs.user}/>
-        }
+        : <ManageRequestsPage user={componentInputs.user} userlist/>
+        } */}
+    
+        <>
+            {createPage()}
+            <div className="toprightbuttons">
+            <button onClick={saveChanges} style={isSaved? {color:'white'} : {color:'red'} } className="button">{isSaved? "Up To Date" : "Save Changes"}</button>  
+                <button onClick={addRequest} className="button">Add A Request</button> 
+                {componentInputs.user.isManager? <Link style={{textDecoration: 'none'}} className='button' to='/manage-requests'>Manage Employee Requests -{'>'}</Link> : null }
+            </div>
+                          
+        </>   
+
     </>
     )
 }

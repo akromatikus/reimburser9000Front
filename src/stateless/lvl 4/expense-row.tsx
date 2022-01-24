@@ -1,4 +1,6 @@
+import ReactTooltip from "react-tooltip";
 import { expenseHistory } from "../../assets/dtos";
+
 
 export default function ExpenseRow(userExpenses: expenseHistory){
     
@@ -6,8 +8,8 @@ export default function ExpenseRow(userExpenses: expenseHistory){
         <>
             <td>{userExpenses.name?? 'HUH'} </td>
             <td>${userExpenses.amount?? 4 } </td>
-            <td>{userExpenses.reason?? "dap"} </td>
-            <td>{userExpenses.isApproved?? "n"} </td>
+            <td>{userExpenses.reason?? "dap"} </td> 
+            <td data-tip={userExpenses.comment}>{userExpenses.isApproved?? "Pending"} </td>
         </>)
 
-}
+}    

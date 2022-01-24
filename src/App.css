@@ -1,6 +1,6 @@
 
 .App {
-  /* outline: 5px solid rgb(228, 2, 2); */
+  outline: 5px solid rgb(228, 2, 2);
   text-align: center;
   height: 100vh;
 }
@@ -10,252 +10,176 @@
 }
 
 body{
-  font-family:monospace;
-  /* font-weight: bold; */
-  overflow: hidden;
-  overscroll-behavior: auto;
+  /* font-family:arial; */
+  font-weight: bold;
+  overflow: scroll;
+  /* overscroll-behavior: auto; */
   /* overflow-y: auto; */
   background-image: url("./assets/login-background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   /* outline: 5px solid rgb(228, 2, 2);  */
   min-height: 100vh;
+  color: rgb(255, 255, 255);
+  letter-spacing: .3vh;
+  height:200vh;
+  opacity: 90%;
+}
+
+/* thanks Joel */
+::-webkit-scrollbar{
+  display: none;
 }
 
 .divLogin{
-  /* display: inline; */
-  /* outline: 5px solid rgb(14, 182, 70);  */
   max-width: 100vh;
-  /* align-content: center; */
+  height: 5vh;
   margin:auto;
-  position: relative;
+  position: relative; 
   
+  display: flex;
+  align-items: center;
+  justify-content:space-between;
+
+  /* outline: 4vh solid rgb(112, 76, 182); */
+
 }
 
-.username{
+.usernamelogin{
   font-family: inherit;
   /* outline: 5px solid rgb(228, 2, 2); */
   text-align: center;
-  height: 4vmin;
+  height: 5vh;
   font-size: 2vh;
   border-radius: 1vmin;
-  border-width: 4px;
+  border-width: .4vh;
   width: 30vh;
   border-color: black;
-  /* margin-left: 50vh;
-  margin-right: 50vh; */
   position: relative; 
-  left: 0%;
+  /* left: 0%; */
+
   background-clip: border;
   -webkit-background-clip: border;
-  /* -webkit-text-fill-color: transparent; */
   background-image: url("./assets/blue-dots.jpg");
-  /* transform: translateX(200%); */
+
 }
 
 .employeeName{
 
   font-family: inherit;
+  color: white;
+  /* text-justify: center; */
+
+  height: 5vh;
+  font-size:2vh;
+  border-style: solid;
+  border-radius: 1vmin;
+  border-width: .4vh;
+  border-color: black;
+  margin: 0vh;
+  
   /* justify-content and align items will center text with more grace than regular css, but display: flex is required!!! */
   display:flex;
   justify-content: center;
   align-items: center;
 
-  color: white;
-  /* text-justify: center; */
-  height: 4vh;
-  font-size:2vh;
-  border-style: solid;
-  border-radius: 1vmin;
-  border-width: 4px;
-  width: 14%;
-  border-color: black;
-  /* margin-left: 50vh;
-  margin-right: 50vh; */
-  position:absolute; 
-  left: 3%;
-  top: 12%;
+  /* outline: 2vh solid rgb(228, 2, 2); */
+  
   background-clip: border;
   -webkit-background-clip: border;
-  /* -webkit-text-fill-color: transparent; */
   background-image: url("./assets/blue-dots.jpg");
-  /* transform: translateX(200%); */
 }
 
 .pw{
   text-align: center;
-  height: 4vmin;
+  height: 5vh;
   font-size: 2vh;
   border-radius: 1vmin;
-  border-width: 4px;
+  border-width: .4vh;
   width: 30vh;
   border-color: black;
-  /* margin-right: -50vh; */
   position: relative; 
-  left: 36%;
+  /* left: 36%; */
   background-clip: border;
   -webkit-background-clip: border;
   /* -webkit-text-fill-color: transparent; */
   background-image: url("./assets/blue-dots.jpg");
 }
 
-.log-in{
+.log-in-button{
   /* outline: 5px solid rgb(228, 2, 2); */
   display:flex;
   justify-content: center;
   align-items: center;
 
-  margin-top: 40px;
-  margin-bottom: 40px;
-  height: 5%;
+  margin: auto;
+  /* margin-top: 4vh;
+  margin-bottom: 4vh; */
+  height: 10vh;
   font-size: 4vh;
   color: rgb(60, 162, 187);
   border-radius: 1vmin;
-  border-width: 4px;
-  width: 8%;
-  border-color: black;
+  border-width: .4vh;
+  width: 16vh;
+  /* border-color: black; */
   /* margin-left: 50vh;
   margin-right: 50vh; */
   position: relative; 
-  left: 46%;
+  /* left: 46%; */
   background-clip: border;
   -webkit-background-clip: border;
   background-image: url("./assets/blue-dots.jpg");
  
 }
 
-/* also the add a request button */
-.managerBtn{
-  /* word-wrap:unset; */
-  font-family: inherit;
-  opacity: 75%;;
-  /* outline: 5px solid rgb(228, 2, 2); */
-  display:flex;
-  justify-content: center;
-  align-items: center;
+.topleftdiv{
+  position: absolute;
+  left: 3%;
+  top: 3%;
+  height: 18vmin;
+  width: 32vh;
+ 
+  display: flex;
+  flex-direction: column;
 
-  height: 5vmin;
-  width: 14%;
-  font-size: 2vh;
-  border-radius: 1vmin;
-  border-width: 4px;
-  /* border-style:inherit; */
-  /* border-radius: 10px; */
-  /* border-width: 4px;
-  width: 30vh;
-  /* border-color: black; */
-  padding: 20px 5px 20px 5px;
-  position:absolute; 
+  /* outline: 5px solid rgb(112, 76, 182); */
+
+}
+.toprightbuttons{
+  position: absolute;
   right: 3%;
-  top: 6%;
-  background-clip:inherit; 
-  -webkit-background-clip:inherit;
-  -webkit-text-fill-color:rgb(0, 0, 0);
-  font-weight: bold;
-  background-image: url("./assets/blue-dots.jpg");
+  top: 3%;
+  height: 18vmin;
+  width: 32vh;
+  /* margin-bottom: 10vh; */
+ 
+  display: flex;
+  flex-direction: column;
 
+  /* outline: 5px solid rgb(112, 76, 182); */
 
 }
 
-.managerBtn:hover{
-  opacity:100%
-}
-
-/* also the add a request button */
-.addReqBtn{
+.tableBtn{
   font-family: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+  padding: 2vh;
+  height: 3vmin;
+  font-size: 1.5vh;
+  border-radius: 10vmin;
   opacity: 75%;
-  /* outline: 5px solid rgb(228, 2, 2); */
-  display:flex;
-  justify-content: center;
-  align-items: center;
 
-  height: 5vmin;
-  width: 14%;
-  font-size: 2vh;
-  border-radius: 1vmin;
-  border-width: 4px;
-  /* border-style:inherit; */
-  /* border-radius: 10px; */
-  /* border-width: 4px;
-  width: 30vh;
-  /* border-color: black; */
-  padding: 8px;
-  position:absolute; 
-  right: 3%;
-  top: 12%;
-  background-clip:inherit; 
-  -webkit-background-clip:inherit;
-  -webkit-text-fill-color:rgb(0, 0, 0);
-  font-weight: bold;
-  background-image: url("./assets/blue-dots.jpg");
-
-
-}
-
-.addReqBtn:hover{
-  opacity:100%
-}
-
-.saveBtn{
-  font-family: inherit;
-  opacity: 75%;
-  /* outline: 5px solid rgb(228, 2, 2); */
-  display:flex;
-  justify-content: center;
-  align-items: center;
-
-  height: 5vmin;
-  width: 14%;
-  font-size: 2vh;
-  border-radius: 1vmin;
-  border-width: 4px;
-  vertical-align: middle;
-  /* border-style:inherit; */
-  /* border-radius: 10px; */
-  /* border-width: 4px;
-  width: 30vh;
-  /* border-color: black; */
-  padding: 8px;
-  position:absolute; 
-  right: 3%;
-  top: 18%;
-  background-clip:inherit; 
-  -webkit-background-clip:inherit;
-  /* -webkit-text-fill-color:rgba(235, 3, 3, 0.589); */
-  font-weight: bold;
-  background-image: url("./assets/blue-dots.jpg");
-}
-
-.saveBtn:hover{
-  opacity:100%
-}
-
-.deleteBtn{
-  font-family: inherit;
-  opacity: 75%;
-  /* outline: 5px solid rgb(228, 2, 2); */
   display:inline-flex;
   justify-content: center;
   align-items: center;
 
-  height: 3vmin;
-  font-size: 1.5vh;
-  border-radius: 10vmin;
-  
-  /* border-style:inherit; */
-  /* border-radius: 10px; */
-  /* border-width: 4px;
-  width: 30vh;
-  /* border-color: black; */
-  padding: 8px;
   background-clip:inherit; 
   -webkit-background-clip:inherit;
-  -webkit-text-fill-color:rgb(0, 0, 0);
   background-image: url("./assets/blue-dots.jpg");
 }
 
-.deleteBtn:hover{
+.tableBtn:hover{
   opacity:100%
 }
 
@@ -271,7 +195,7 @@ body{
   font-size:2vh;
   border-style: solid;
   border-radius: 1vmin;
-  border-width: 4px;
+  border-width: .4vh;
   width: 14%;
   border-color: black;
   /* margin-left: 50vh;
@@ -285,6 +209,45 @@ body{
   background-image: url("./assets/blue-dots.jpg");
   /* transform: translateX(200%); */
 
+}
+
+/* for react Link component */
+a{
+  text-align: center;
+  border-color: black;
+  border-width: .4vh;
+  border-style: solid;
+  /* height: 2vh; */
+}
+
+.button{
+  font-family: inherit;
+  font-size: 2vh;
+  font-weight: bold;
+  color: inherit;
+  letter-spacing: inherit;
+  opacity: 75%;
+
+  display:inline-flex;
+  justify-content: center;
+  align-items: center;
+  /* text-align: center; */
+
+
+  height: 6vh;
+  border-radius: 1vmin;
+  border-width: .4vh;
+  /* border-color: black; */
+
+  background-clip:border; 
+  -webkit-background-clip:border-box;
+  /* -webkit-text-stroke: .15vh rgb(0, 0, 0); */
+  
+  background-image: url("./assets/blue-dots.jpg");
+}
+
+.button:hover{
+  opacity:100%
 }
 
 .newReq{
@@ -308,27 +271,25 @@ body{
   /* background-image: url("./assets/blue-dots.jpg"); */
 }
 
-.App-logo {
-  display:flex;
-  justify-content: center;
-  align-items: center;
-  margin: auto;
+.page-name {
   word-wrap: break-word;
-
-  padding-right: auto;
+  /* outline: 4vh solid rgb(112, 76, 182); */
+  padding-left: 2.5vh;
   font-family: "serat";
-  font-size: 90px;
+  font-size: 10vh;
   /* align-items: center; */
-  height: 15vmin;
-  width: 120vh;
+  height: auto;
+  width: 55%;
+  margin: auto;
+  /* margin-bottom: 20vh; */
   /* position: relative; */
   /* left: 25%; */
   pointer-events: none;
-  letter-spacing: 20px;
+  letter-spacing: 2vh;
   margin-top: 5vh;
-  margin-bottom: 5vh;
+  margin-bottom: 10vh;
   /* text-shadow: 0 0 3px rgb(31, 3, 185), 0 0 10px #000000; */
-  -webkit-text-stroke: 3px rgb(0, 0, 0);
+  -webkit-text-stroke: .4vh rgb(0, 0, 0);
   
   background-clip: text;
   -webkit-background-clip: text;
@@ -341,19 +302,46 @@ body{
 
 th, td, table {
   /* width:94%;  this will not work correctly with flex items inside it */
+  /* margin-top: 15%; */
   margin-left: 3%;
   margin-right: 3%;
-  border: 3px solid black;
+  padding: 2vh;
+  border: .4vh solid black;
   border-radius: 1.25vmin;
   text-align: center;
   word-wrap: break-word;
   font-size: 2vh;
+  color: inherit;
+  letter-spacing: inherit;
+  /* -webkit-text-stroke: 1px rgb(0, 0, 0); */
   background-color: rgba(16, 16, 20, 0.233);
 }
 
+table{
+  margin-top: 2vh;
+  margin-bottom: 10vh;
+}
+
+.commentbox{
+  border-radius: 1.25vmin;
+  position: fixed;
+  width: 30%;
+  height: 30vh;
+  left: 35%;
+  background-image: url("./assets/blue-dots.jpg");
+  text-align: center;
+  columns: inherit;
+  margin: auto;
+  font-size: 3vh;
+  /* text-align: center; */
+  /* display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-content: center; */
+}
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
+  .page-name {
     text-align: center;
     /* animation: App-logo-float infinite 3s ease-in-out; */
     /* animation: slidein 3s;
@@ -363,7 +351,7 @@ th, td, table {
     animation-iteration-count: 1, infinite;
   }
 
-  .username{
+  .usernamelogin{
     animation-name: slideright;
     animation-duration: 3s;
     animation-iteration-count: 1;
@@ -375,6 +363,24 @@ th, td, table {
     animation-iteration-count: 1;
 
   }
+
+  .toprightbuttons{
+    animation-name: fadein;
+    animation-duration: 6s;
+    animation-iteration-count: 1;
+  }
+
+  .topleftdiv{
+    animation-name: fadein;
+    animation-duration: 6s;
+    animation-iteration-count: 1;
+  }
+  
+  /* .employeeName{
+    animation-name: fadein;
+    animation-duration: 6s;
+    animation-iteration-count: 1;
+  } */
 }
 
 .App-header {
@@ -394,18 +400,19 @@ th, td, table {
 
 @keyframes App-logo-float {
   0% {
-    transform: translateY(20px);
+    transform: translateY(4vh);
   }
   50% {
     transform: translateY(0px);
   }
   100% {
-    transform: translateY(20px);
+    transform: translateY(4vh);
   }
 }
 
 @keyframes slidein {
   0% { margin-top:-100vh; opacity: 0 ; }
+
   100% { margin-top:5vh; opacity: 100% ; }
 }
 
@@ -415,13 +422,19 @@ th, td, table {
 }
 
 @keyframes slideleft {
-  0% { left:200%; opacity: 0 ; }
-  100% { left:36%; opacity: 100% ; }
+  0% { right:-100%; opacity: 0 ; }
+  100% { right:0%; opacity: 100% ; }
 }
 
 @keyframes cornerize {
   0% { left:200%; opacity: 0 ; }
   100% { left:36%; opacity: 100% ; }
+}
+
+@keyframes fadein {
+  0% { opacity: 0 ; }
+  40% { opacity: 0 ; }
+  100% { opacity: 100% ; }
 }
 
 @-o-viewport{

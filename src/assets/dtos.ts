@@ -12,6 +12,7 @@ export interface expenseHistory{
     amount:number
     reason:string
     isApproved: string
+    comment: string
 }
 
 // optional parameters can be created using 'parametername'?: 'type'

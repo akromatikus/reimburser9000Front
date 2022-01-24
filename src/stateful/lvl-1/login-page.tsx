@@ -1,32 +1,19 @@
-import {useRef, useState} from "react"
+import React, {useRef, useState} from "react"
+import { Route, Routes } from "react-router-dom"
 import user from "../../assets/dtos"
 import fetcher from "../../stateless/fetcher"
 import EmployeePage from "../lvl-2/employee-page"
+import ManageRequestsPage from "../lvl-3/manage-requests-page"
 
 
 
-export default function LoginPage(){
-    
+export default function LoginPage(componentInputs:{user: user, setUser: Function}){
+    const derp = 'derp'
     //states
     const usernameInput = useRef(null)
     const pwInput = useRef(null)
     const [attemptWarning, setWarning] = useState('')
-    const [user, setUser] = useState<user>(
-        // {
-        //     id:"",
-        //     username:"",
-        //     pw:"",
-        //     isManager:false,
-        //     expenseHistory: [
-        //         {
-        //             name:'',
-        //             amount:0,
-        //             reason:'',
-        //             isApproved:''
-        //         }
-        //     ] 
-        // }
-    )
+    //const [user, setUser] = useState<user>()
 
     //button click function
     async function checkCredentials(){
@@ -43,7 +30,7 @@ export default function LoginPage(){
         
         //if the user exists
         if (resBody !== 'Not a user'){
-             setUser({
+             componentInputs.setUser({
                 id: resBody.id, 
                 username: resBody.username, 
                 pw: resBody.pw,
@@ -57,18 +44,19 @@ export default function LoginPage(){
     }
 
     //returns either this login page or the employee page
-    return(<>{
+    return(<> 
+    {
         
-        !user ? 
+        !componentInputs.user? 
         <> 
-            <h1 className='App-logo'>Login</h1>
+            <h1 className='page-name'>Login</h1>
             <div className="divLogin">
-            <input ref={usernameInput} id="username" className="username" placeholder="username" />
+            <input ref={usernameInput} id="username" className="usernamelogin" placeholder="username" />
             <input ref={pwInput} id="pw" className="pw" placeholder="password" />
             </div>
-            <button onClick={checkCredentials} className="log-in">Log In</button>
+            <button onClick={checkCredentials} className="log-in-button">Log In</button>
             <h2 className="warning">{attemptWarning}</h2>
-        </> : <EmployeePage user = {user}/>
+        </> : <EmployeePage user = {componentInputs.user}/>
     }
     </>)
 }
