@@ -3,10 +3,8 @@ import user, { expenseHistory } from "../../assets/dtos"
 import fetcher from "../../stateless/fetcher"
 import ExpenseRow from "../../stateless/lvl 4/expense-row"
 import { v4 as randomID } from 'uuid';
-import StatisticsPage from "../lvl-4/statistics-page";
 import ReactTooltip from "react-tooltip";
-import EmployeePage from "../lvl-2/employee-page";
-import { Link, Route } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 export default function ManageRequestsPage(componentInputs:{user: user, userlist: user[], setUserlist: Function}){
 

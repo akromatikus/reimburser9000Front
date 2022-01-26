@@ -1,8 +1,5 @@
-import { useEffect, useRef, useState } from "react"
-import user, { expenseHistory } from "../../assets/dtos"
-import fetcher from "../../stateless/fetcher"
-import ExpenseRow from "../../stateless/lvl 4/expense-row"
-import { v4 as randomID } from 'uuid';
+import {useState } from "react"
+import user from "../../assets/dtos"
 import { Link } from "react-router-dom";
 
 export default function StatisticsPage(componentInputs:{userlist: user[]}){
@@ -44,8 +41,7 @@ export default function StatisticsPage(componentInputs:{userlist: user[]}){
                     amountPending++
                 }
             }
-        }
-        
+        }       
         return {requestVolume, currencyVolume, amountPending}
     }
 
@@ -64,8 +60,6 @@ export default function StatisticsPage(componentInputs:{userlist: user[]}){
                     <tr><th>Average total dollar value requested by each user</th><td>${stats[4].toFixed(2)}</td></tr>
                     <tr><th>Number of pending requests</th><td>{stats[5]}</td></tr>
                 </tbody>
-
-
             </table>
         
     </>

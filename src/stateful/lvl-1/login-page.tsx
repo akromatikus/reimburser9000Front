@@ -1,19 +1,16 @@
 import React, {useRef, useState} from "react"
-import { Route, Routes } from "react-router-dom"
 import user from "../../assets/dtos"
 import fetcher from "../../stateless/fetcher"
 import EmployeePage from "../lvl-2/employee-page"
-import ManageRequestsPage from "../lvl-3/manage-requests-page"
 
 
 
 export default function LoginPage(componentInputs:{user: user, setUser: Function}){
-    const derp = 'derp'
+    
     //states
     const usernameInput = useRef(null)
     const pwInput = useRef(null)
     const [attemptWarning, setWarning] = useState('')
-    //const [user, setUser] = useState<user>()
 
     //button click function
     async function checkCredentials(){
@@ -43,7 +40,7 @@ export default function LoginPage(componentInputs:{user: user, setUser: Function
         }
     }
 
-    //returns either this login page or the employee page
+    //returns either this login page or the employee page if the user is logged it
     return(<> 
     {
         
@@ -52,7 +49,7 @@ export default function LoginPage(componentInputs:{user: user, setUser: Function
             <h1 className='page-name'>Login</h1>
             <div className="divLogin">
             <input ref={usernameInput} id="username" className="usernamelogin" placeholder="username" />
-            <input ref={pwInput} id="pw" className="pw" placeholder="password" />
+            <input ref={pwInput} type="password" id="pw" className="pw" placeholder="password" />
             </div>
             <button onClick={checkCredentials} className="log-in-button">Log In</button>
             <h2 className="warning">{attemptWarning}</h2>

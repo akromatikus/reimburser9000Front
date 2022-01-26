@@ -9,6 +9,10 @@
   text-align: center;
 }
 
+h3{
+  text-align: center;
+}
+
 body{
   /* font-family:arial; */
   font-weight: bold;
@@ -145,6 +149,8 @@ body{
   /* outline: 5px solid rgb(112, 76, 182); */
 
 }
+
+
 .toprightbuttons{
   position: absolute;
   right: 3%;

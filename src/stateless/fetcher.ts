@@ -21,16 +21,9 @@ export default async function fetcher(inputs, fetchtype:string){
             await fetch('http://localhost:5000/update-users', {
                 method:'PATCH', body: JSON.stringify(usersToUpdate), 
                 headers:{'Content-Type':'application/json'}
-            
             })
             break;
-        case 'delete-request':
-            backendRes =
-            await fetch('http://localhost:5000/deletereq')    
-            break;
-
         default:
-            return (Error("no fetch of that type exists"))
-         
+            return (Error("no fetch of that type exists"))       
     }
 }

@@ -1,25 +1,23 @@
-import { produceWithPatches } from "immer"
-import { useEffect, useRef, useState } from "react"
-import { JsxElement } from "typescript"
+
+import {useRef, useState } from "react"
 import user, { expenseHistory } from "../../assets/dtos"
 import ExpenseRow from "../../stateless/lvl 4/expense-row"
-import ManageRequestsPage from "../lvl-3/manage-requests-page"
-import ManageRequests from "../lvl-3/manage-requests-page"
-import { v4 as randomID } from 'uuid';
+import { v4 as randomID } from 'uuid'
 import fetcher from "../../stateless/fetcher"
 import ReactTooltip from "react-tooltip"
-import { Link, Route } from "react-router-dom"
+import {Link} from "react-router-dom"
 
 export default function EmployeePage(componentInputs:{user: user}){
     
     //delete a request, rerender, and save the del button index
+    //needed so a rerender happens on every request delete
     const [deleteCounter, setDelIndex] = useState<number>(0)
 
-    //the boolean thats tells react to add an new request
+    //the booleans thats tells react to add an new request and set save state
     const [isSaved, setToSaved] = useState<boolean>(true)
     const [newRequest, setNewRequest] = useState<boolean>(false)
-    const [gotoManageReqPage, setGotoManageReqPage] = useState<boolean>(false)
 
+    //new request inputs
     const newRequestName = useRef<HTMLInputElement>(null)
     const newRequestAmount = useRef<HTMLInputElement>(null)
     const newRequestReason = useRef<HTMLInputElement>(null)
@@ -27,12 +25,6 @@ export default function EmployeePage(componentInputs:{user: user}){
     const [warning, setWarning] = useState<string>()
 
     let expenseTable: JSX.Element[]
-
-    // console.log("The states passed down to the employee page is the user: ", 
-    //     componentInputs.user, 
-    //     "the expenses are", 
-    //     componentInputs.user.expenseHistory 
-    // )
 
     function createPage(){
 
@@ -54,7 +46,7 @@ export default function EmployeePage(componentInputs:{user: user}){
             <h1 className="page-name">My Requests</h1>
             <div className='topleftdiv'>
                 {usernameDisplay}
-                <h1>{warning}</h1> 
+                <h3>{warning}</h3> 
             </div>
             <table cellPadding={20} >
                 <colgroup>
@@ -88,13 +80,11 @@ export default function EmployeePage(componentInputs:{user: user}){
 
     function addRequest(){
         if (newRequest){
-            setWarning('')
+            setWarning('You must save your changes before adding another request!')
             console.log("you must save your changes before adding another request")
         }
         else{
-
-            //const newRequest: expenseHistory = null
-            //componentInputs.user.expenseHistory.push(newRequest)
+            setWarning("")
 
             console.log("request made")
             //createPage will be rerendered with a new request input added
@@ -107,10 +97,12 @@ export default function EmployeePage(componentInputs:{user: user}){
 
     function deleteRequest(clickEvent){
 
-        console.log("The click counter", deleteCounter)
+        //console.log("The click counter", deleteCounter)
+        
         //update the local user profile
         componentInputs.user.expenseHistory.splice(clickEvent.target.value, 1)
-        console.log("expenseHistory before rerender:", componentInputs.user.expenseHistory)
+        
+        //console.log("expenseHistory before rerender:", componentInputs.user.expenseHistory)
 
         //!state will not update and rerender if the values passed to it are the same as the previous values!
         //cause a rerender
@@ -120,7 +112,8 @@ export default function EmployeePage(componentInputs:{user: user}){
 
         //will set the page to being unsaved
         setToSaved(false)
-        console.log("expenseHistory after rerender:", componentInputs.user.expenseHistory)
+        
+        //console.log("expenseHistory after rerender:", componentInputs.user.expenseHistory)
 
         //used to rerender for every button click, incase the other two states are already false
         //the click event sends the del button index for each click, which ensures a rerender
@@ -132,18 +125,24 @@ export default function EmployeePage(componentInputs:{user: user}){
         //fill out the new request using the input states
         //!null check not working
 
+        console.log("new request is ", newRequest)
         if (newRequest){
             try{
+                console.log("starting try")
                 const newRequestInputs: expenseHistory = 
                 {
                     name: newRequestName.current.value, 
                     amount: Number(newRequestAmount.current.value) ?? NaN, 
                     reason: newRequestReason.current.value,
                     isApproved: 'Pending',
-                    comment: ''
+                    comment: ""
                 }
                 
-                if (newRequestInputs.name === '' || newRequestInputs.reason === '' || newRequestInputs.amount === NaN || newRequestInputs.amount <= 0 )
+                console.log("The new request is ", newRequestInputs)
+                if (newRequestInputs.name === '' || 
+                    newRequestInputs.reason === '' || 
+                    newRequestInputs.amount === NaN || 
+                    newRequestInputs.amount <= 0 )
                     {throw new Error("bad EENPOOTS")}
                 
                 //add it to this users information profile (this component only)
@@ -158,6 +157,7 @@ export default function EmployeePage(componentInputs:{user: user}){
             //throw an error if the inputs are invalid
             catch(error){
                 //if there are deletes that were made
+                setWarning("All request fields must be filled out, and the amount must be a plain number. Try adding another request.")
                 if (deleteCounter > 0){
                     await fetcher( [componentInputs.user], 'update-users'); 
                     console.log("pushing to backend in catch");
@@ -167,13 +167,19 @@ export default function EmployeePage(componentInputs:{user: user}){
             //this will remove the new request on rerender if it is invalid, but also when it is passed in to the component input expenseHistory list
             setNewRequest(false);
         }
+        //if no new request was made, but deletes were made, update the DB
         else if (deleteCounter > 0){
             await fetcher( [componentInputs.user], 'update-users'); 
             console.log("pushing to backend with no new request added");
         }
 
         //signal by state that all changes have been saved by resetting the isSaved to false
-        if (isSaved){console.log("everything is already up to date")}
+        if (isSaved){
+            console.log("everything is already up to date"); 
+            setWarning("Everything is already up to date")
+        }
+        
+        //needs to reset regardless
         setDelIndex(0)
         setToSaved(true)
             
@@ -182,30 +188,13 @@ export default function EmployeePage(componentInputs:{user: user}){
 
     //! adding () to a function here will determine whether it is called or rendered. Only A react component child can have no ()
     return(
-    <> 
-        {/* {!gotoManageReqPage?
-            <>
-                {createPage()}
-                <div className="toprightbuttons">
-                <button onClick={saveChanges} style={isSaved? {color:'white'} : {color:'red'} } className="button">{isSaved? "Up To Date" : "Save Changes"}</button>  
-                    <button onClick={addRequest} className="button">Add A Request</button> 
-                    {componentInputs.user.isManager? <button className="button" onClick={() => setGotoManageReqPage(true) }>Manage Employee Requests</button> : null }
-                </div>
-                          
-            </>   
-        : <ManageRequestsPage user={componentInputs.user} userlist/>
-        } */}
-    
-        <>
+    <>   
             {createPage()}
             <div className="toprightbuttons">
             <button onClick={saveChanges} style={isSaved? {color:'white'} : {color:'red'} } className="button">{isSaved? "Up To Date" : "Save Changes"}</button>  
                 <button onClick={addRequest} className="button">Add A Request</button> 
                 {componentInputs.user.isManager? <Link style={{textDecoration: 'none'}} className='button' to='/manage-requests'>Manage Employee Requests -{'>'}</Link> : null }
-            </div>
-                          
-        </>   
-
+            </div>                           
     </>
     )
 }
