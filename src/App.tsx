@@ -1,6 +1,6 @@
-import { stringify } from 'querystring';
-import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import { useState } from 'react';
+import {Routes, Route } from 'react-router-dom';
 import './App.css';
 import LoginPage from './stateful/lvl-1/login-page';
 import EmployeePage from './stateful/lvl-2/employee-page';

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export default function StatisticsPage(componentInputs:{userlist: user[]}){
 
     //updated initially with the callback function 
-    const [stats, setStats] = useState<number[]>(
+    const [stats] = useState<number[]>(
         ()=> createStatDisplay(componentInputs.userlist)
     )
 

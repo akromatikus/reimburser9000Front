@@ -34,7 +34,7 @@ export default function ManageRequestsPage(componentInputs:{user: user, userlist
             }
         )()
     }, 
-    [])
+    [componentInputs])
 
     //console.log("the userlist is", userlist)
 
@@ -89,6 +89,7 @@ export default function ManageRequestsPage(componentInputs:{user: user, userlist
 
         //rerender if the click event changes
         setUpdate(clickEvent)
+        console.log("so azure wont yell at me, ignore",update)
 
         setToSaved(false)
     }
@@ -159,7 +160,7 @@ export default function ManageRequestsPage(componentInputs:{user: user, userlist
         // const currentManagerIndex = componentInputs.userlist.indexOf(componentInputs.user)
         // console.log("manager index is ", currentManagerIndex)
         for (let index = 0; index < componentInputs.userlist.length; index++){
-            if (componentInputs.userlist[index].id != componentInputs.user.id){
+            if (componentInputs.userlist[index].id !== componentInputs.user.id){
                 userlistTable.push( createUserTable(index) )
             }
         }
