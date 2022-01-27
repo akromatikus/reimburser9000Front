@@ -2,21 +2,21 @@
     "scm.defaultViewMode": "tree",
     
     "files.exclude":{
-        "**/public": true,
-        "**/node_modules": true,
-        "**/assets": true,
-        ".gitignore": true,
-        "package.json": true,
-        "package-lock.json": true,
-        "README.md": true,
-        "tsconfig.json": true,
-        "src/react-app-env.d.ts": true,
-        "src/index.css": true,
-        "src/setupTests.ts": true,
-        "**/notes": true,
-        "**/.vscode": true,
-        "src/App.css": true,
-        "LICENSE": true
+        "**/public": false,
+        "**/node_modules": false,
+        "**/assets": false,
+        ".gitignore": false,
+        "package.json": false,
+        "package-lock.json": false,
+        "README.md": false,
+        "tsconfig.json": false,
+        "src/react-app-env.d.ts": false,
+        "src/index.css": false,
+        "src/setupTests.ts": false,
+        "**/notes": false,
+        "**/.vscode": false,
+        "src/App.css": false,
+        "LICENSE": false
     }
     
 }

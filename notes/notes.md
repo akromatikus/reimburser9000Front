@@ -146,3 +146,12 @@ DTO's:
     - conditional rendering is all that is needed for page rendering
 
 - right click then format document to format json that is all on one line
+
+**Creating a static webpage with Azure Static Web Page**
+
+- go to static web apps on azure
+- create static web app
+    - orgnaization: git name
+    - repo
+    - branch: main
+    - build preset: react

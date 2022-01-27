@@ -3,7 +3,7 @@ import {useRef, useState } from "react"
 import user, { expenseHistory } from "../../assets/dtos"
 import ExpenseRow from "../../stateless/lvl 4/expense-row"
 import { v4 as randomID } from 'uuid'
-import fetcher from "../../stateless/fetcher"
+import fetcher from "../../fetcher"
 import ReactTooltip from "react-tooltip"
 import {Link} from "react-router-dom"
 
@@ -132,16 +132,16 @@ export default function EmployeePage(componentInputs:{user: user}){
                 const newRequestInputs: expenseHistory = 
                 {
                     name: newRequestName.current.value, 
-                    amount: Number(newRequestAmount.current.value) ?? NaN, 
+                    amount: Number(newRequestAmount.current.value)?? NaN, 
                     reason: newRequestReason.current.value,
                     isApproved: 'Pending',
                     comment: ""
                 }
                 
-                console.log("The new request is ", newRequestInputs)
+                console.log("The new request is ", newRequestInputs, "the amount is", newRequestInputs.amount )
                 if (newRequestInputs.name === '' || 
                     newRequestInputs.reason === '' || 
-                    newRequestInputs.amount === NaN || 
+                    Number.isNaN(newRequestInputs.amount) || 
                     newRequestInputs.amount <= 0 )
                     {throw new Error("bad EENPOOTS")}
                 
@@ -157,7 +157,7 @@ export default function EmployeePage(componentInputs:{user: user}){
             //throw an error if the inputs are invalid
             catch(error){
                 //if there are deletes that were made
-                setWarning("All request fields must be filled out, and the amount must be a plain number. Try adding another request.")
+                setWarning("All request fields must be filled out, and the amount must be a plain number. Try adding another request!")
                 if (deleteCounter > 0){
                     await fetcher( [componentInputs.user], 'update-users'); 
                     console.log("pushing to backend in catch");
@@ -184,6 +184,18 @@ export default function EmployeePage(componentInputs:{user: user}){
         setToSaved(true)
             
     }
+
+    // function derp(){
+    //     if (isSaved){
+    //         console.log("going to manage requests")
+    //         return '/manage-requests'
+    //     }
+    //     else{
+    //         console.log("Alert!")
+    //         alert("Not saved")
+    //         return '/my-requests'
+    //     }
+    // }
 
 
     //! adding () to a function here will determine whether it is called or rendered. Only A react component child can have no ()

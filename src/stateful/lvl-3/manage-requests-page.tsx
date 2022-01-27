@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
 import user, { expenseHistory } from "../../assets/dtos"
-import fetcher from "../../stateless/fetcher"
+import fetcher from "../../fetcher"
 import ExpenseRow from "../../stateless/lvl 4/expense-row"
 import { v4 as randomID } from 'uuid';
 import ReactTooltip from "react-tooltip";
@@ -9,11 +9,9 @@ import {Link} from "react-router-dom";
 export default function ManageRequestsPage(componentInputs:{user: user, userlist: user[], setUserlist: Function}){
 
     //updated initially  with a userlist by useEffect
-    // const [userlist, setUserList] = useState<user[]>()
     const [isSaved, setToSaved] = useState<boolean>(true)
     const [update, setUpdate] = useState<string>('')
     const [indicesOfUsersToUpdate, setUsersToUpdateIndices] = useState<number[]>([])
-    const [seeStatisticsPage, setGotoStatistics] = useState<boolean>(false)
 
     //@params addCommentBox: say whether the save feature will 
     // const [commentBox, setCommentBox] = useState<{addCommentBox: boolean[], comment: string[], commentID: string[]}>()
@@ -21,7 +19,6 @@ export default function ManageRequestsPage(componentInputs:{user: user, userlist
     const comment = useRef<HTMLTextAreaElement>()
     const [commentBoxCurrent, setcommentBoxCurrent] = useState<string>()
 
-    // const buttonClick = useRef()
     //get the userlist on page load
     useEffect(()=> 
     {
@@ -159,8 +156,12 @@ export default function ManageRequestsPage(componentInputs:{user: user, userlist
 
     function createUserTableList(){
         const userlistTable: JSX.Element[] = []
+        // const currentManagerIndex = componentInputs.userlist.indexOf(componentInputs.user)
+        // console.log("manager index is ", currentManagerIndex)
         for (let index = 0; index < componentInputs.userlist.length; index++){
-            userlistTable.push( createUserTable(index) )
+            if (componentInputs.userlist[index].id != componentInputs.user.id){
+                userlistTable.push( createUserTable(index) )
+            }
         }
         return userlistTable
 
@@ -174,7 +175,6 @@ export default function ManageRequestsPage(componentInputs:{user: user, userlist
         //create the table of requests. the component input will be updated as necessary, so that when this functioin
         // gets called on render it will update the backend
         const expenseTable = (componentInputs.userlist[userIndex].expenseHistory.map( (expense: expenseHistory, index: number) => 
-
             <tr key={randomID()}> 
                 <ExpenseRow key={randomID()} {...expense}/> 
                 <td> 
@@ -189,7 +189,7 @@ export default function ManageRequestsPage(componentInputs:{user: user, userlist
                     </button>
                 </td> 
                 <ReactTooltip/>
-            </tr>,  
+            </tr>  
         ))
         
         // cellPadding={20}
@@ -270,6 +270,5 @@ export default function ManageRequestsPage(componentInputs:{user: user, userlist
             
         
         </> 
-        {/* : <StatisticsPage userlist={componentInputs.userlist} /> */}
     </>)
 }

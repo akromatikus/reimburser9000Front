@@ -11,6 +11,7 @@
 
 h3{
   text-align: center;
+  font-size: 1.5vh;
 }
 
 body{
@@ -74,7 +75,7 @@ body{
   color: white;
   /* text-justify: center; */
 
-  height: 5vh;
+  height: 5vmin;
   font-size:2vh;
   border-style: solid;
   border-radius: 1vmin;

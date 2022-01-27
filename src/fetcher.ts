@@ -1,4 +1,4 @@
-import user from "../assets/dtos";
+import user from "./assets/dtos";
 
 export default async function fetcher(inputs, fetchtype:string){
     let backendRes = null

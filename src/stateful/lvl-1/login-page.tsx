@@ -1,12 +1,12 @@
 import React, {useRef, useState} from "react"
 import user from "../../assets/dtos"
-import fetcher from "../../stateless/fetcher"
+import fetcher from "../../fetcher"
 import EmployeePage from "../lvl-2/employee-page"
 
 
 
 export default function LoginPage(componentInputs:{user: user, setUser: Function}){
-    
+
     //states
     const usernameInput = useRef(null)
     const pwInput = useRef(null)
