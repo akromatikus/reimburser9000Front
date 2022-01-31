@@ -224,7 +224,7 @@ export default function ManageRequestsPage(componentInputs:{user: user, userlist
                 <Link style= { { textDecoration: 'none' }} className='button' to="/my-requests">{'<- '}Back To My Requests</Link>
             </div>
             {commentBox? <textarea ref={comment} className='commentbox' placeholder="Enter a comment (optional) and hit 'set comment' to close this window"></textarea> : null}
-            {componentInputs.userlist? createUserTableList() : <h1>hmmm</h1>}           
+            {componentInputs.userlist? <div className='scrolldiv'>{createUserTableList()}</div> : <h1>hmmm</h1>}           
         
         </> 
     </>)
