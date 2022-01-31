@@ -10,7 +10,7 @@ export default function ManageRequestsPage(componentInputs:{user: user, userlist
 
     //updated initially  with a userlist by useEffect
     const [isSaved, setToSaved] = useState<boolean>(true)
-    const [update, setUpdate] = useState<string>('')
+    const [update, setUpdate] = useState<Promise<string>>(()=> onPageloadFetch()) //used for pageload, but also to rerender on approve/deny button click, other states were not updating.
     const [indicesOfUsersToUpdate, setUsersToUpdateIndices] = useState<number[]>([])
 
     //@params addCommentBox: say whether the save feature will 
@@ -19,37 +19,21 @@ export default function ManageRequestsPage(componentInputs:{user: user, userlist
     const comment = useRef<HTMLTextAreaElement>()
     const [commentBoxCurrent, setcommentBoxCurrent] = useState<string>()
 
-    //get the userlist on page load
-    useEffect(()=> 
-    {
-        (
-            async()=> 
-            {
-                //send a request to backend
-                const fetchedUserlist: user[] = await fetcher(null, 'get-userlist'); 
-                console.log(fetchedUserlist)
 
-                //update state with fetched userlist
-                componentInputs.setUserlist(fetchedUserlist);
-            }
-        )()
-    }, 
-    [componentInputs])
+    async function onPageloadFetch(){
+        const fetchedUserlist: user[] = await fetcher(null, 'get-userlist'); 
+        console.log(fetchedUserlist)
 
-    //console.log("the userlist is", userlist)
+        //update state with fetched userlist
+        componentInputs.setUserlist(fetchedUserlist);
+        return ('good to go')
+    }
 
     function changeRequest(clickEvent){ 
 
         //get the local index of the user request
         const [userIndex, reqIndex] = clickEvent.target.value.split('.')
         console.log("indices are",userIndex, reqIndex)
-
-        // //will need a conditional to see if the commentID already exists so it knows not to override it with a new input
-        // const {...commentBoxClone} = commentBox
-        // commentBoxClone.addCommentBox.push(true)
-        // commentBoxClone.commentID.push(clickEvent.target.value) //remember this is a string so that saveChanges can update correctly
-
-        //setCommentBox(true)
 
         //clone the userlist
         const userlistClone = componentInputs.userlist
@@ -80,16 +64,12 @@ export default function ManageRequestsPage(componentInputs:{user: user, userlist
         //update the UserIndices state 
         setUsersToUpdateIndices(indicesOfUsersToUpdateClone)
 
-        // console.log("The userIndexesClone is now", userIndicesClone)
-        // console.log("The userIndexes are", userIndices)
-        // console.log("approved")
-
-        //update the userlist state
+        //update the userlist state and rerender
         componentInputs.setUserlist(userlistClone)
 
         //rerender if the click event changes
         setUpdate(clickEvent)
-        console.log("so azure wont yell at me, ignore",update)
+        console.log("uses a state so azure won't yell at me, ignore",update)
 
         setToSaved(false)
     }
@@ -114,20 +94,7 @@ export default function ManageRequestsPage(componentInputs:{user: user, userlist
             console.log("The userlistClone is", userlistClone)
 
             userlistClone[userIndex].expenseHistory[reqIndex].comment = comment.current?.value ?? ''
-            
-            // //if the request is not approved
-            // if (userlistClone[Number(userIndex)].expenseHistory[Number(reqIndex)].isApproved !== 'Yes'){
-            //     //approve it
-            //     userlistClone[Number(userIndex)].expenseHistory[Number(reqIndex)].isApproved = 'Yes' 
-                
-            // }
-            // else{
-            //     //otherwise deny it
-            //     userlistClone[Number(userIndex)].expenseHistory[Number(reqIndex)].isApproved = 'No'
-            // }
-
-
-            
+                        
             console.log("the clone was updated and the user request is now", userlistClone[Number(userIndex)])
 
             //clone the state of the user indices list
@@ -139,10 +106,6 @@ export default function ManageRequestsPage(componentInputs:{user: user, userlist
 
             //update the UserIndices state 
             setUsersToUpdateIndices(indicesOfUsersToUpdateClone)
-
-            // console.log("The userIndexesClone is now", userIndicesClone)
-            // console.log("The userIndexes are", userIndices)
-            // console.log("approved")
 
             //update the userlist state
             componentInputs.setUserlist(userlistClone)
@@ -193,12 +156,8 @@ export default function ManageRequestsPage(componentInputs:{user: user, userlist
             </tr>  
         ))
         
-        // cellPadding={20}
         return(<>
-            {/* old h1 */}
-            {/* <h1 className="App-logo">Request Management</h1>
-            <div>{usernameDisplay}</div> */}
-            <div><h1 className='userlistname'>{componentInputs.userlist[userIndex].pw}</h1></div>
+            <div><h1 className='userlistname'>{componentInputs.userlist[userIndex].username}</h1></div>
             <table>
                 <colgroup>
                     <col width={'7.5%'}></col>
@@ -258,17 +217,14 @@ export default function ManageRequestsPage(componentInputs:{user: user, userlist
                     onClick={saveChanges} style={isSaved? {color:'white'} : {color:'red'} } 
                     className="button">{isSaved? "Up To Date" : "Save Changes"}
                 </button>
-                {/* <button className='button' onClick={()=> setGotoStatistics(true)}>Statistics Page</button> */}
                 <Link style= { { textDecoration: 'none'}} className='button' to="/statistics">Statistics {'->'}</Link>
             </div>
             <div className="topleftdiv">
                 <h1 id="username" className="employeeName">{componentInputs.user.username}</h1>
                 <Link style= { { textDecoration: 'none' }} className='button' to="/my-requests">{'<- '}Back To My Requests</Link>
-                {/* <button className='button' onClick={gotoPage}>Back</button> */}
             </div>
             {commentBox? <textarea ref={comment} className='commentbox' placeholder="Enter a comment (optional) and hit 'set comment' to close this window"></textarea> : null}
-            {componentInputs.userlist? createUserTableList() : <h1>hmmm</h1>}
-            
+            {componentInputs.userlist? createUserTableList() : <h1>hmmm</h1>}           
         
         </> 
     </>)

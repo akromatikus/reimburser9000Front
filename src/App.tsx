@@ -22,13 +22,11 @@ export default function App() {
     }
 
     return (<>
-
-    <Routes>
-        <Route path="/my-requests" element={<EmployeePage user={thisUser}/>}/>
-        <Route path="/manage-requests" element={<ManageRequestsPage user={thisUser} userlist={userlist} setUserlist={setUserlist}/>}/>
-        <Route path="/statistics" element={<StatisticsPage userlist={userlist} />}/>
-        <Route path="/" element={<LoginPage user={thisUser} setUser={setUser} />}/>
-    </Routes>  
-
+        <Routes>
+            <Route path="/my-requests" element={<EmployeePage user={thisUser}/>}/>
+            <Route path="/manage-requests" element={<ManageRequestsPage user={thisUser} userlist={userlist} setUserlist={setUserlist}/>}/>
+            <Route path="/statistics" element={<StatisticsPage userlist={userlist} />}/>
+            <Route path="/" element={<LoginPage user={thisUser} setUser={setUser} />}/>
+        </Routes>  
     </>)
 }

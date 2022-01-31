@@ -25,7 +25,6 @@ export default function EmployeePage(componentInputs:{user: user}){
     const [warning, setWarning] = useState<string>()
 
     let expenseTable: JSX.Element[]
-
     function createPage(){
 
         //create the username text in the top left corner of the screen
@@ -37,7 +36,7 @@ export default function EmployeePage(componentInputs:{user: user}){
 
             <tr key={randomID()}> 
                 <ExpenseRow key={randomID()} {...expense}/> 
-                <td><button className="tableBtn" value={index} onClick={ (clickEvent) => deleteRequest(clickEvent) }>  DEL{index} </button></td> 
+                <td><button className="tableBtn" value={index} onClick={ (clickEvent) => deleteRequest(clickEvent) }>Delete</button></td> 
                 <ReactTooltip/>
             </tr>
         ))
@@ -96,24 +95,17 @@ export default function EmployeePage(componentInputs:{user: user}){
     }
 
     function deleteRequest(clickEvent){
-
-        //console.log("The click counter", deleteCounter)
         
         //update the local user profile
         componentInputs.user.expenseHistory.splice(clickEvent.target.value, 1)
-        
-        //console.log("expenseHistory before rerender:", componentInputs.user.expenseHistory)
 
         //!state will not update and rerender if the values passed to it are the same as the previous values!
-        //cause a rerender
-        
+
         //will remove a new request from the rerender if it has not been saved yet
         setNewRequest(false)
 
         //will set the page to being unsaved
         setToSaved(false)
-        
-        //console.log("expenseHistory after rerender:", componentInputs.user.expenseHistory)
 
         //used to rerender for every button click, incase the other two states are already false
         //the click event sends the del button index for each click, which ensures a rerender
@@ -154,8 +146,10 @@ export default function EmployeePage(componentInputs:{user: user}){
     
                 
             }
+            
             //throw an error if the inputs are invalid
             catch(error){
+                
                 //if there are deletes that were made
                 setWarning("All request fields must be filled out, and the amount must be a plain number. Try adding another request!")
                 if (deleteCounter > 0){
@@ -164,9 +158,11 @@ export default function EmployeePage(componentInputs:{user: user}){
                 }
 
             }
+            
             //this will remove the new request on rerender if it is invalid, but also when it is passed in to the component input expenseHistory list
             setNewRequest(false);
         }
+        
         //if no new request was made, but deletes were made, update the DB
         else if (deleteCounter > 0){
             await fetcher( [componentInputs.user], 'update-users'); 
@@ -184,19 +180,6 @@ export default function EmployeePage(componentInputs:{user: user}){
         setToSaved(true)
             
     }
-
-    // function derp(){
-    //     if (isSaved){
-    //         console.log("going to manage requests")
-    //         return '/manage-requests'
-    //     }
-    //     else{
-    //         console.log("Alert!")
-    //         alert("Not saved")
-    //         return '/my-requests'
-    //     }
-    // }
-
 
     //! adding () to a function here will determine whether it is called or rendered. Only A react component child can have no ()
     return(
