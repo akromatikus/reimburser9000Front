@@ -1,3 +1,5 @@
 **Reimburser9000 Front**
 
-A react application 
+Made with React
+
+*START* npm start
