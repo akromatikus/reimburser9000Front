@@ -2,4 +2,4 @@
 
 Made with React
 
-*START* npm start
+*START:* npm start
